@@ -1,5 +1,5 @@
 .PHONY: build dist lint setup copy serve clean metrics test zip contrib
-build: setup lint build/katex.min.js build/katex.min.css contrib zip compress
+build: lint build/katex.min.js build/katex.min.css contrib zip compress
 
 dist: build
 	rm -rf dist/
@@ -17,7 +17,7 @@ setup:
 	npm install
 
 lint: katex.js server.js cli.js $(wildcard src/*.js) $(wildcard test/*.js) $(wildcard contrib/*/*.js) $(wildcard dockers/*/*.js)
-	./node_modules/.bin/jshint $^
+	./node_modules/.bin/eslint $^
 
 build/katex.js: katex.js $(wildcard src/*.js)
 	$(BROWSERIFY) $< --standalone katex > $@
